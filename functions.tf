@@ -1,14 +1,14 @@
 locals {
   input_prefix  = "dist/functions"
   output_prefix = "dist/archives"
-  functions     = toset([for fn in fileset("${path.module}/${local.input_prefix}", "*.mjs") : trimsuffix(fn, ".mjs")])
+  functions     = toset([for fn in fileset("${path.module}/${local.input_prefix}", "*.js") : trimsuffix(fn, ".js")])
 }
 
 data "archive_file" "lambdas" {
   for_each = local.functions
 
   type        = "zip"
-  source_file = "${local.input_prefix}/${each.key}.mjs"
+  source_file = "${local.input_prefix}/${each.key}.js"
   output_path = "${local.output_prefix}/${each.key}_function_payload.zip"
 }
 
@@ -24,6 +24,14 @@ resource "aws_lambda_function" "lambdas" {
 
   runtime = "nodejs16.x"
 
+  environment {
+    variables = {
+      myVariable = "Hello world"
+    }
+  }
+
+
+
 }
 
 # Layers
@@ -38,9 +46,9 @@ resource "aws_lambda_function" "lambdas" {
 #   ]
 # }
 
-resource "aws_s3_bucket" "lambda_layers" {
-  bucket = "lambda-layers"
-}
+# resource "aws_s3_bucket" "lambda_layers" {
+#   bucket = "lambda-layers"
+# }
 
 # resource "aws_s3_bucket_object" "lambda_layer" {
 #   bucket = aws_s3_bucket.lambda_layers.bucket

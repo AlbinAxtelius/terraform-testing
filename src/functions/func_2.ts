@@ -1,10 +1,19 @@
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
+import * as E from "fp-ts/Either";
+import { pipe } from "fp-ts/function";
 
-export const handler: APIGatewayProxyHandlerV2 = async (event, context) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: "Hello from func 2",
-    }),
-  };
-};
+const variable = process.env.myVariable;
+
+export const handler: APIGatewayProxyHandlerV2 = async (_event, _context) =>
+  pipe(
+    variable,
+    E.fromNullable("Invalid env"),
+    E.map((message) => ({
+      statusCode: 200,
+      body: JSON.stringify({ message }),
+    })),
+    E.getOrElse((error) => ({
+      statusCode: 400,
+      body: JSON.stringify({ error }),
+    }))
+  );

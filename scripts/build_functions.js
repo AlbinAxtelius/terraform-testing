@@ -13,5 +13,7 @@ const files = readdirSync(join(__dirname, "..", "src", "functions"))
 build({
   outdir: join(__dirname, "..", "dist", "functions"),
   entryPoints: files,
-  outExtension: { ".js": ".mjs" },
+  bundle: true,
+  format: "cjs",
+  target: "node16",
 });
