@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.119",
     "esbuild": "^0.18.11",
     "terraform": "^1.22.1",
     "typescript": "^5.1.6"
