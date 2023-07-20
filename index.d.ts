@@ -1,9 +1,9 @@
-export {};
+export {}
 
 declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      myVariable: string;
-    }
-  }
+	namespace NodeJS {
+		interface ProcessEnv {
+			TABLE_NAME: string
+		}
+	}
 }

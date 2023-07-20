@@ -1,19 +1,16 @@
-import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
-import * as E from "fp-ts/Either";
-import { pipe } from "fp-ts/function";
+import '../../polyfill/crypto'
+import { DynamoDBClient, ScanCommand } from '@aws-sdk/client-dynamodb'
 
-const variable = process.env.myVariable;
+global
 
-export const handler: APIGatewayProxyHandlerV2 = async (_event, _context) =>
-  pipe(
-    variable,
-    E.fromNullable("Invalid env"),
-    E.map((message) => ({
-      statusCode: 200,
-      body: JSON.stringify({ message }),
-    })),
-    E.getOrElse((error) => ({
-      statusCode: 400,
-      body: JSON.stringify({ error }),
-    }))
-  );
+const { TABLE_NAME } = process.env
+
+const client = new DynamoDBClient({
+	region: 'eu-central-1',
+})
+
+export const handler = async () => {
+	const command = new ScanCommand({ TableName: TABLE_NAME })
+	const result = await client.send(command)
+	return result.Count
+}

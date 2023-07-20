@@ -22,16 +22,16 @@ resource "aws_lambda_function" "lambdas" {
 
   role = aws_iam_role.iam_for_lambda.arn
 
-  runtime = "nodejs16.x"
+  
+
+  runtime = "nodejs18.x"
+
 
   environment {
     variables = {
-      myVariable = "Hello world"
+      TABLE_NAME = aws_dynamodb_table.items.name
     }
   }
-
-
-
 }
 
 # Layers
