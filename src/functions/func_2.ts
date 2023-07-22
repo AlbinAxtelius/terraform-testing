@@ -1,16 +1,33 @@
-import '../../polyfill/crypto'
-import { DynamoDBClient, ScanCommand } from '@aws-sdk/client-dynamodb'
+import type { DynamoDBDocument } from '@aws-sdk/lib-dynamodb'
 
-global
+import { getDatabase } from '../database/getDBClient'
 
-const { TABLE_NAME } = process.env
+import * as O from 'fp-ts/lib/Option'
+import * as T from 'fp-ts/lib/Task'
+import * as TO from 'fp-ts/lib/TaskOption'
+import { flow, pipe } from 'fp-ts/lib/function'
 
-const client = new DynamoDBClient({
-	region: 'eu-central-1',
-})
+const scan = (tableName: string) => (db: DynamoDBDocument) =>
+	TO.tryCatch(() => db.scan({ TableName: tableName }))
 
-export const handler = async () => {
-	const command = new ScanCommand({ TableName: TABLE_NAME })
-	const result = await client.send(command)
-	return result.Count
-}
+const getAllItems = flow(
+	TO.of<DynamoDBDocument>,
+	TO.flatMap(scan('env-items')),
+	TO.map((s) => s.Items || [])
+)
+
+const extractAllIds = (xs: { id?: string }[]) =>
+	xs.map(
+		flow(
+			({ id }) => id,
+			O.fromNullable,
+			O.getOrElse(() => 'no id')
+		)
+	)
+
+export const handler: T.Task<string[]> = pipe(
+	TO.fromOption(getDatabase()),
+	TO.flatMap(getAllItems),
+	TO.map(extractAllIds),
+	TO.getOrElse(() => T.of<string[]>([]))
+)

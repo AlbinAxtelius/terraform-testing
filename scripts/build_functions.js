@@ -16,5 +16,8 @@ build({
 	bundle: true,
 	format: 'cjs',
 	target: 'node16',
-	external: ['crypto'],
+	minify: true,
+	legalComments: 'none',
+	treeShaking: true,
+	platform: 'node',
 })

@@ -21,6 +21,9 @@
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.370.0",
+    "@aws-sdk/credential-providers": "^3.370.0",
+    "@aws-sdk/lib-dynamodb": "^3.370.0",
+    "aws-sdk": "^2.1419.0",
     "fp-ts": "^2.16.0",
     "zod": "^3.21.4"
   }

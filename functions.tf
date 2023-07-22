@@ -20,72 +20,14 @@ resource "aws_lambda_function" "lambdas" {
   filename         = each.value.output_path
   source_code_hash = each.value.output_base64sha256
 
-  role = aws_iam_role.iam_for_lambda.arn
-
-  
+  role = aws_iam_role.assume_role.arn
 
   runtime = "nodejs18.x"
 
-
   environment {
     variables = {
-      TABLE_NAME = aws_dynamodb_table.items.name
+      TABLE_NAME = aws_dynamodb_table.items.name,
     }
   }
 }
 
-# Layers
-
-# data "archive_file" "lambda_layer" {
-#   type        = "zip"
-#   output_path = "dist/layer/nodejs_layer_payload.zip"
-#   source_dir  = "dist/nodejs"
-
-#   depends_on = [
-#     null_resource.zip_layer,
-#   ]
-# }
-
-# resource "aws_s3_bucket" "lambda_layers" {
-#   bucket = "lambda-layers"
-# }
-
-# resource "aws_s3_bucket_object" "lambda_layer" {
-#   bucket = aws_s3_bucket.lambda_layers.bucket
-#   key    = "nodejs.zip"
-
-#   etag   = data.archive_file.lambda_layer.output_base64sha256
-#   source = data.archive_file.lambda_layer.output_path
-
-#   depends_on = [
-#     null_resource.zip_layer,
-#   ]
-# }
-
-# resource "null_resource" "zip_layer" {
-#   triggers = {
-#     updated_at = timestamp()
-#   }
-
-#   provisioner "local-exec" {
-#     command     = <<EOF
-#     pnpm install --production
-#     mkdir -p dist/nodejs
-#     cp -r node_modules dist/nodejs
-#     EOF
-#     working_dir = "${path.module}/dist/layer}"
-#   }
-# }
-
-# resource "aws_lambda_layer_version" "lambda_dependencies" {
-#   layer_name          = "node16x_dependencies"
-#   compatible_runtimes = ["nodejs16.x"]
-
-#   s3_bucket = aws_s3_bucket.lambda_layers.bucket
-#   s3_key    = aws_s3_bucket_object.lambda_layer.key
-
-#   depends_on = [
-#     aws_s3_bucket_object.lambda_layer,
-#     null_resource.zip_layer
-#   ]
-# }
