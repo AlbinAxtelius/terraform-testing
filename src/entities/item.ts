@@ -5,6 +5,7 @@ import { safeScan } from '../database/scan'
 import { DatabaseOperations } from './globals'
 import { safeCreate } from '../database/create'
 import { v4 as uuidv4 } from 'uuid'
+import { nanoid } from 'nanoid'
 
 export const ItemSchema = z.object({
 	id: z.string(),
@@ -30,12 +31,14 @@ export type CreateItem = z.infer<typeof ItemSchema>
 
 const TABLE_NAME = 'env-items'
 
+const generateItemId = () => `i_${nanoid(10)}`
+
 export const setupItemOperations = (db: DynamoDBDocument) =>
 	({
 		getById: safeGet(TABLE_NAME, ItemSchema)(db),
 		scan: safeScan(TABLE_NAME, ItemsSchema)(db),
 		create: safeCreate(TABLE_NAME, CreateItemSchema, {
 			completed: false,
-			id: uuidv4(),
+			id: generateItemId(),
 		})(db),
 	} satisfies DatabaseOperations)

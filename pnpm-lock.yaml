@@ -17,6 +17,9 @@ dependencies:
   fp-ts:
     specifier: ^2.16.0
     version: 2.16.0
+  nanoid:
+    specifier: ^4.0.2
+    version: 4.0.2
   uuid:
     specifier: ^9.0.0
     version: 9.0.0
@@ -25,9 +28,6 @@ dependencies:
     version: 3.21.4
 
 devDependencies:
-  '@smithy/types':
-    specifier: ^2.0.2
-    version: 2.0.2
   '@types/aws-lambda':
     specifier: ^8.10.119
     version: 8.10.119
@@ -1029,13 +1029,6 @@ packages:
       tslib: 2.6.0
     dev: false
 
-  /@smithy/types@2.0.2:
-    resolution: {integrity: sha512-wcymEjIXQ9+NEfE5Yt5TInAqe1o4n+Nh+rh00AwoazppmUt8tdo6URhc5gkDcOYrcvlDVAZE7uG69nDpEGUKxw==}
-    engines: {node: '>=14.0.0'}
-    dependencies:
-      tslib: 2.6.0
-    dev: true
-
   /@smithy/url-parser@1.0.2:
     resolution: {integrity: sha512-0JRsDMQe53F6EHRWksdcavKDRjyqp8vrjakg8EcCUOa7PaFRRB1SO/xGZdzSlW1RSTWQDEksFMTCEcVEKmAoqA==}
     dependencies:
@@ -1624,6 +1617,12 @@ packages:
       obliterator: 1.6.1
     dev: false
 
+  /nanoid@4.0.2:
+    resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
+    engines: {node: ^14 || ^16 || >=18}
+    hasBin: true
+    dev: false
+
   /normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
@@ -1699,6 +1698,7 @@ packages:
 
   /tslib@2.6.0:
     resolution: {integrity: sha512-7At1WUettjcSRHXCyYtTselblcHl9PJFFVKiCAy/bY97+BPZXSQ2wbq0P9s8tK2G7dFQfNnlJnPAiArVBVBsfA==}
+    dev: false
 
   /typescript@5.1.6:
     resolution: {integrity: sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==}
