@@ -1,12 +1,5 @@
-import type {
-	APIGatewayProxyEventV2,
-	APIGatewayProxyHandlerV2,
-} from 'aws-lambda'
-import { flow, pipe } from 'fp-ts/lib/function'
-import * as J from 'fp-ts/Json'
-import * as O from 'fp-ts/Option'
 import * as E from 'fp-ts/Either'
-import * as S from 'fp-ts/string'
+import { flow } from 'fp-ts/lib/function'
 import z from 'zod'
 
 type SafeParseWithSchema = <S extends z.ZodType>(

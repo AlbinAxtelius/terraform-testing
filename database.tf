@@ -14,4 +14,3 @@ resource "aws_dynamodb_table" "items" {
     type = "S"
   }
 }
-

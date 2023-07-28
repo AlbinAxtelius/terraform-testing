@@ -37,6 +37,8 @@ data "aws_iam_policy_document" "read_db_policy_doc" {
       "dynamodb:GetItem",
       "dynamodb:Query",
       "dynamodb:Scan",
+      "dynamodb:UpdateItem",
+      "dynamodb:PutItem"
     ]
 
     resources = ["*"]
