@@ -5,9 +5,7 @@ import { pipe } from 'fp-ts/lib/function'
 import z from 'zod'
 import { parseValues } from './utils/parseValues'
 import { log } from './utils/log'
-
-type CreateError = { type: 'CREATE_ERROR' }
-const CREATE_ERROR: CreateError = { type: 'CREATE_ERROR' }
+import { CREATE_ERROR } from '../errors'
 
 export const safeCreate =
 	<S extends z.ZodType>(

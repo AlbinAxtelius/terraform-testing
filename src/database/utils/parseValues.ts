@@ -1,8 +1,6 @@
 import * as E from 'fp-ts/Either'
 import z from 'zod'
-
-export type ParsingError = { type: 'PARSING_ERROR' }
-export const PARSING_ERROR: ParsingError = { type: 'PARSING_ERROR' }
+import { PARSING_ERROR, ParsingError } from '../../errors'
 
 export const parseValues =
 	<S extends z.ZodType>(schema?: S) =>

@@ -4,16 +4,10 @@ import {
 	GetCommandOutput,
 } from '@aws-sdk/lib-dynamodb'
 import * as TE from 'fp-ts/TaskEither'
-import { flow, pipe } from 'fp-ts/lib/function'
+import { pipe } from 'fp-ts/lib/function'
 import z from 'zod'
 import { parseValues } from './utils/parseValues'
-import { log, logW } from './utils/log'
-
-type NotFoundError = { type: 'NOT_FOUND_ERROR' }
-const NOT_FOUND_ERROR: NotFoundError = { type: 'NOT_FOUND_ERROR' }
-
-type GetError = { type: 'GET_ERROR' }
-const GET_ERROR: GetError = { type: 'GET_ERROR' }
+import { GET_ERROR, GetError, NOT_FOUND_ERROR } from '../errors'
 
 export const safeGet =
 	<S extends z.ZodType>(tableName: string, schema?: S) =>

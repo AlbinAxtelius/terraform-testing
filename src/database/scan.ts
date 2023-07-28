@@ -4,15 +4,10 @@ import {
 	ScanCommandOutput,
 } from '@aws-sdk/lib-dynamodb'
 import * as TE from 'fp-ts/TaskEither'
-import { flow, pipe } from 'fp-ts/lib/function'
+import { pipe } from 'fp-ts/lib/function'
 import z from 'zod'
 import { parseValues } from './utils/parseValues'
-
-type NotFoundError = { type: 'NOT_FOUND_ERROR' }
-const NOT_FOUND_ERROR: NotFoundError = { type: 'NOT_FOUND_ERROR' }
-
-type ScanError = { type: 'SCAN_ERROR' }
-const SCAN_ERROR: ScanError = { type: 'SCAN_ERROR' }
+import { ScanError, SCAN_ERROR, NOT_FOUND_ERROR } from '../errors'
 
 export const safeScan =
 	<S extends z.ZodType>(tableName: string, schema?: S) =>
