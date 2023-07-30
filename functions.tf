@@ -26,7 +26,8 @@ resource "aws_lambda_function" "lambdas" {
 
   environment {
     variables = {
-      TABLE_NAME = aws_dynamodb_table.items.name,
+      ITEMS_TABLE = aws_dynamodb_table.items.name,
+      NOTES_TABLE = aws_dynamodb_table.notes.name,
     }
   }
 }

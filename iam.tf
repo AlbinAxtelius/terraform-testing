@@ -38,7 +38,8 @@ data "aws_iam_policy_document" "read_db_policy_doc" {
       "dynamodb:Query",
       "dynamodb:Scan",
       "dynamodb:UpdateItem",
-      "dynamodb:PutItem"
+      "dynamodb:PutItem",
+      "secretsmanager:GetSecretValue"
     ]
 
     resources = ["*"]

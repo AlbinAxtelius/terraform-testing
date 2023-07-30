@@ -1,7 +1,7 @@
 import type { APIGatewayProxyStructuredResultV2 } from 'aws-lambda'
 import * as J from 'fp-ts/Json'
 import * as E from 'fp-ts/Either'
-import { flow, pipe } from 'fp-ts/lib/function'
+import { flow } from 'fp-ts/lib/function'
 
 export type CreateResponseErrors = string
 

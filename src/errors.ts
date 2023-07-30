@@ -12,3 +12,6 @@ export const SCAN_ERROR: ScanError = { type: 'SCAN_ERROR' }
 
 export type ParsingError = { type: 'PARSING_ERROR' }
 export const PARSING_ERROR: ParsingError = { type: 'PARSING_ERROR' }
+
+export type TableError = { type: 'TABLE_ERROR' }
+export const TABLE_ERROR: TableError = { type: 'TABLE_ERROR' }

@@ -3,7 +3,6 @@ import * as T from 'fp-ts/lib/Task'
 import { flow, pipe } from 'fp-ts/lib/function'
 import { Item, setupItemOperations } from '../entities/item'
 import { dynamo } from '../database/getDBClient'
-import { log } from '../database/utils/log'
 
 const OkResult = (data: Item) => ({
 	statusCode: 200,
